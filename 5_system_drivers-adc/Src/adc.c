@@ -9,6 +9,12 @@
 #define CR2_SWSTART		(1U<<30)
 #define SR_EOC			(1U<<1)
 
+/*
+ * Configure PA1 as adc channel.
+ * Works in polling mode, no interrupt enabled
+ * No DMA
+ */
+
 void pa1_adc_init(void){
 	//Configure the ADC GPIO pin
 	RCC->AHB1ENR |= GPIOAEN; //Enable clock access to GPIOA
@@ -21,8 +27,9 @@ void pa1_adc_init(void){
 	ADC1->CR2 |= CR2_ADCON; //Enable ADC module
 }
 
+//Start ADC conversion in continuous mode
 void start_conversion(void){
-	ADC1->CR2 |= CR2_CONT; //Enable continous conversion
+	ADC1->CR2 |= CR2_CONT; //Enable continuous conversion
 	ADC1->CR2 |= CR2_SWSTART; //Start ADC conversion
 }
 
